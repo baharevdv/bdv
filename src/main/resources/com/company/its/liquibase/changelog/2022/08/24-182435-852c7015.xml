@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="its">
+        <createTable tableName="ITS_TASK">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ITS_TASK"/>
+            </column>
+            <column name="TYPE_ID" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INPUT_" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RESULT_" type="VARCHAR(255)"/>
+            <column name="DATE_" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="its">
+        <createTable tableName="ITS_TASKTYPE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ITS_TASKTYPE"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="its">
+        <addForeignKeyConstraint baseColumnNames="TYPE_ID" baseTableName="ITS_TASK" constraintName="FK_ITS_TASK_ON_TYPE"
+                                 referencedColumnNames="ID" referencedTableName="ITS_TASKTYPE"/>
+    </changeSet>
+</databaseChangeLog>

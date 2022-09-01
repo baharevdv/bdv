@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://taskEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="taskDc"
+                  class="com.company.its.entity.Task">
+            <fetchPlan extends="_base">
+                <property name="type" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="taskTypesDc" class="com.company.its.entity.TaskType">
+            <fetchPlan extends="_base"/>
+            <loader id="taskTypesDl">
+                <query>
+                    <![CDATA[select e from its_TaskType e]]>
+                </query>
+            </loader>
+        </collection>
+
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="calculate" caption="msg://calculate.caption"/>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="export" caption="msg://export.caption"/>
+        <action id="load" caption="msg://load.caption"/>
+        <action id="import" caption="msg://import.caption"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="taskDc">
+            <column width="350px">
+                <dateField id="dateField" property="date"/>
+                <entityComboBox id="typeField" property="type" optionsContainer="taskTypesDc">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityComboBox>
+                <textArea id="inputField" property="input"/>
+                <textArea id="resultField" property="result" enable="false" editable="false"/>
+
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose" caption="msg://commitAndCloseBtn.caption"/>
+            <button action="calculate" id="calculateBtn" caption="msg://calculateBtn.caption" enable="false"/>
+            <button action="export" id="exportBtn" caption="msg://exportBtn.caption" enable="false"/>
+            <button action="load" id="loadBtn" caption="msg://loadBtn.caption"/>
+            <fileStorageUpload id="importBtn" fileStoragePutMode="MANUAL" uploadButtonCaption="msg://importBtn.caption"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

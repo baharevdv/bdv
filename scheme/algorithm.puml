@@ -1,0 +1,17 @@
+@startuml
+
+skinparam "for i5" octagon
+
+(*)  --> "for i5"
+
+If "input is verbose" then
+--> [Yes] "turn on verbosity"
+--> "run command"
+else
+--> "run command"
+Endif
+-->(*)
+}
+
+
+@enduml
